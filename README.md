@@ -136,7 +136,3 @@ Profiled the full customer base with summary statistics. Built a new vs returnin
 **Priti Pachal**  
 Aspiring Business Analyst | Data Analysis  
 https://www.linkedin.com/in/priti-pachal-b21a881b4/ | priti.pachal.05@gmail.com
-# Marks & Spencer Retail Sales Analysis
-### SQL Business Intelligence Project
-
----
