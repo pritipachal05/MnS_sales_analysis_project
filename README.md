@@ -58,6 +58,62 @@ marks-spencer-ba-project/
 > Note: This is a real UK retail transactional dataset used here in a simulated M&S business analysis context for portfolio purposes.
 
 ---
+**Key Findings**
+**Revenue & Trading Performance**
+
+Total net revenue across the analysis period: £17743429.16
+Peak trading month: Nov 2010 with £1,172,336.04 in revenue
+Month-on-month growth ranged from -55.4% to 47.6%
+Average order value across the period: £576.95
+
+**Product Performance**
+
+20 unique products analysed across the clean dataset
+Top 5 products accounted for 5.62% of total net revenue
+Highest revenue product: REGENCY CAKESTAND 3 TIER, generating £286486.3
+
+**Geographic Breakdown**
+
+United Kingdom accounted for 82.98% of total net revenue
+Top 3 international markets: UK, EIRE, Netherlands 
+41 countries represented in the total customer base
+
+**Customer Analytics & RFM Segmentation**
+
+Total unique customers analysed: 5878
+Average revenue per customer: £3018.62
+Average orders per customer: 6.29
+Highest individual customer spend: £608821.65
+
+**RFM Segment Summary:**
+
+| Segment | Customers | Avg Orders | Avg Spend (£) | Total Revenue (£) |
+|---|---|---|---|---|
+| Champions | 758 | 10.0 | 5142.74 | 3898193.9 |
+| Loyal Customers | 2261 | 10.5 | 5540.82 | 12527788.67 |
+| Promising | 1668 | 1.4 | 301.44 | 502803.74 |
+| Needs Attention | 869 | 2.5 | 537.89 | 467422.35 |
+| At Risk | 220 | 4.8 | 1460.96 | 321410.33 |
+| Lost | 102 | 1.0 | 253.04 | 25810.17 |
+
+**Key CRM insight:** Champion customers generated **£[X]** in revenue. At Risk customers represent a **£[X]** reactivation opportunity for the M&S loyalty and CRM teams.
+
+---
+## Data Quality Findings
+
+The following issues were identified and handled during the cleaning phase:
+
+| Issue | Row Count | Action Taken |
+|---|---|---|
+| Cancelled orders (invoice starting with 'C') | 19494 | Excluded from clean view |
+| Negative or zero quantity | 22950 | Excluded from clean view |
+| Zero or negative price | 6207 | Excluded from clean view |
+| Missing customer ID | 243007 | Excluded from clean view |
+| Missing product description | 4382 | Excluded from clean view |
+
+> Raw data was preserved in the original `transactions` table. All exclusions were applied via a SQL VIEW rather than deletion, in line with non-destructive data handling best practice.
+
+---
 
 ## Phase Summary
 
@@ -67,27 +123,11 @@ Set up a SQLite database, loaded raw transactional data from two CSV sources, an
 ### Phase 2 — Data Cleaning & Exploration
 Conducted a full data quality audit, identifying nulls, cancellations, and invalid records. Built a clean transaction view (`ms_clean_transactions`) excluding cancelled orders, zero-price rows, negative quantities, and anonymous transactions. Documented data quality findings below.
 
-### Phase 3 — Revenue & Product KPIs *(in progress)*
-Monthly revenue trends, average order value, top product lines by revenue and volume, and month-on-month growth analysis.
+### Phase 3 — Revenue & Product KPIs
+Delivered five commercial KPIs for the trading and buying teams: monthly revenue trend, month-on-month growth using `LAG` window function, top 20 products by revenue, country revenue breakdown with percentage share using `SUM OVER` window function, and average order value trend.
 
-### Phase 4 — Customer Analytics & RFM Segmentation *(in progress)*
-New vs returning customer split, average customer spend, and RFM (Recency, Frequency, Monetary) segmentation to identify high-value customer tiers.
-
----
-
-## Data Quality Findings — Phase 2
-
-The following issues were identified and handled during the cleaning phase:
-
-| Issue | Row Count | Action Taken |
-|---|---|---|
-| Cancelled orders (invoice starting with 'C') | 19,494 | Excluded from clean view |
-| Negative or zero quantity | 22.950 | Excluded from clean view |
-| Zero or negative price | 6,207 | Excluded from clean view |
-| Missing customer ID | 243,007 | Excluded from clean view |
-| Missing product description | 4,382 | Excluded from clean view |
-
-> Raw data was preserved in the original `transactions` table. All exclusions were applied via a SQL VIEW rather than deletion, in line with non-destructive data handling best practice.
+### Phase 4 — Customer Analytics & RFM Segmentation
+Profiled the full customer base with summary statistics. Built a new vs returning customer split by month using chained CTEs and `JOIN`. Scored every customer across Recency, Frequency, and Monetary dimensions using `NTILE(4)` window functions. Segmented customers into six actionable groups — Champions, Loyal, Promising, Needs Attention, At Risk, and Lost — with revenue and order metrics per segment.
 
 ---
 
@@ -96,3 +136,7 @@ The following issues were identified and handled during the cleaning phase:
 **Priti Pachal**  
 Aspiring Business Analyst | Data Analysis  
 https://www.linkedin.com/in/priti-pachal-b21a881b4/ | priti.pachal.05@gmail.com
+# Marks & Spencer Retail Sales Analysis
+### SQL Business Intelligence Project
+
+---
